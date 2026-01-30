@@ -1,163 +1,158 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ruangvita.space</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ruang Vita</title>
+<link href="https://fonts.googleapis.com/css2?family=Marhey&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;min-height:100vh;font-family:'Montserrat',sans-serif;
+  background:linear-gradient(rgba(255,255,255,.65),rgba(255,255,255,.65)),
+  url('https://i.imgur.com/OpCjk2q.jpeg');
+  background-size:cover;background-position:center;
+  display:flex;align-items:center;justify-content:center;
+  transition:1s ease;
+}
 
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Marhey&display=swap" rel="stylesheet">
+body.dark{
+  background:linear-gradient(rgba(10,10,35,.9),rgba(10,10,35,.95)),
+  url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=80');
+  color:#f2d9ff;
+}
 
-  <style>
-    *{box-sizing:border-box}
-    body{
-      margin:0;min-height:100vh;
-      font-family:'Montserrat',sans-serif;
-      background:linear-gradient(rgba(255,255,255,.65),rgba(255,255,255,.65)),
-      url('https://image2url.com/r2/default/images/1769741410716-5879dc79-fc4c-4843-9936-45ebb839b02a.jpg');
-      background-size:cover;background-position:center;background-attachment:fixed;
-      display:flex;align-items:center;justify-content:center;
-      color:#5a2149;transition:1s ease;
-    }
+#stars{position:fixed;inset:0;pointer-events:none;z-index:0;display:none}
+body.dark #stars{display:block}
+.star{position:absolute;width:2px;height:2px;background:white;border-radius:50%;opacity:.7;animation:twinkle 3s infinite}
+@keyframes twinkle{0%,100%{opacity:.2}50%{opacity:1}}
 
-    body.dark{
-      background:linear-gradient(rgba(10,10,35,.75),rgba(10,10,35,.85)),
-      url('https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?auto=format&fit=crop&w=1600&q=80');
-      color:#f2e8ff;
-    }
+.card{
+  width:100%;max-width:420px;
+  max-height:92vh;overflow-y:auto;
+  background:rgba(255,255,255,.92);
+  border-radius:28px;padding:26px 22px 30px;
+  box-shadow:0 16px 36px rgba(0,0,0,.18);
+  text-align:center;z-index:2;
+}
+body.dark .card{background:rgba(20,20,40,.92)}
 
-    .stars{position:fixed;inset:0;pointer-events:none;z-index:0;display:none}
-    body.dark .stars{display:block}
-    .star{position:absolute;width:2px;height:2px;background:#fff;border-radius:50%;opacity:.8;animation:twinkle 3s infinite ease-in-out}
-    @keyframes twinkle{0%,100%{opacity:.2}50%{opacity:1}}
+.avatar{width:96px;height:96px;margin:0 auto 12px;border-radius:50%;overflow:hidden}
+.avatar img{width:100%;height:100%;object-fit:cover}
 
-    .card{
-      width:100%;max-width:420px;
-      background:rgba(255,255,255,.9);
-      border-radius:28px;padding:26px 22px 30px;
-      box-shadow:0 16px 36px rgba(0,0,0,.18);
-      text-align:center;position:relative;z-index:2
-    }
-    body.dark .card{background:rgba(20,20,45,.92)}
+h1{font-family:'Marhey',cursive;font-size:40px;margin:6px 0 8px}
+.tagline{font-size:13px;opacity:.9;margin-bottom:22px}
 
-    .avatar{width:96px;height:96px;margin:0 auto 12px;border-radius:50%;
-      background:conic-gradient(from 180deg,#ff7eb3,#ff4fa3,#ff7eb3);
-      display:grid;place-items:center;box-shadow:0 10px 24px rgba(0,0,0,.25)}
-    .avatar img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.links a{
+  display:grid;grid-template-columns:28px 1fr 18px;
+  align-items:center;gap:10px;text-decoration:none;
+  background:linear-gradient(135deg,#fff,#ffe8f2);
+  margin:10px 0;padding:14px 16px;border-radius:18px;
+  font-weight:600;color:#5a2149;border:1px solid #ffd1e8;
+  box-shadow:0 6px 14px rgba(0,0,0,.12);
+  transition:.3s ease;
+}
+.links a:hover{transform:translateY(-3px) scale(1.02)}
 
-    h1{margin:6px 0 10px;font-family:'Marhey',cursive;font-size:40px}
-    .tagline{font-size:13px;opacity:.9;margin-bottom:22px}
+body.dark .links a{
+  background:linear-gradient(135deg,#2b2242,#1a1533);
+  border:1px solid #4b3b6b;color:#f2d9ff
+}
 
-    .links a{
-      display:grid;grid-template-columns:28px 1fr 18px;gap:10px;
-      background:linear-gradient(135deg,#fff,#ffe8f2);
-      margin:12px 0;padding:14px 16px;border-radius:18px;
-      text-decoration:none;font-weight:600;color:#5a2149;
-      box-shadow:0 6px 14px rgba(0,0,0,.12);
-      transition:.35s cubic-bezier(.22,1,.36,1)
-    }
-    .links a:hover{transform:translateY(-3px) scale(1.02);
-      box-shadow:0 18px 36px rgba(255,100,180,.35)}
+footer{margin-top:16px;font-size:11px;opacity:.6}
 
-    body.dark .links a{
-      background:linear-gradient(135deg,#2b2242,#1a1533);
-      color:#f2e8ff
-    }
-
-    .toggle{
-      position:absolute;top:14px;left:14px;
-      width:42px;height:42px;border-radius:50%;
-      border:none;cursor:pointer;font-size:18px;
-      background:rgba(255,255,255,.85);
-      box-shadow:0 6px 16px rgba(0,0,0,.25)
-    }
-    body.dark .toggle{background:#2a2144;color:#ffd9ff}
-
-    #audioBtn{
-      position:fixed;right:16px;bottom:16px;
-      background:rgba(255,255,255,.85);
-      border-radius:999px;padding:10px 14px;
-      font-size:14px;box-shadow:0 8px 20px rgba(0,0,0,.25);
-      cursor:pointer;z-index:10
-    }
-    body.dark #audioBtn{background:rgba(40,30,70,.9);color:#fff}
-
-    footer{margin-top:16px;font-size:11px;opacity:.65}
-  </style>
+.toggle{
+  position:fixed;left:16px;bottom:16px;
+  width:42px;height:42px;border-radius:50%;
+  border:none;font-size:18px;cursor:pointer;
+  background:rgba(255,255,255,.85);
+  box-shadow:0 6px 16px rgba(0,0,0,.25);z-index:10
+}
+#audioBtn{
+  position:fixed;right:16px;bottom:16px;
+  background:rgba(255,255,255,.85);
+  border-radius:999px;padding:10px 14px;
+  font-size:14px;box-shadow:0 8px 20px rgba(0,0,0,.25);
+  cursor:pointer;z-index:10
+}
+body.dark .toggle,body.dark #audioBtn{background:#2a2144;color:#fff}
+</style>
 </head>
-
 <body>
-<div class="stars" id="stars"></div>
+
+<div id="stars"></div>
 
 <div class="card">
-  <button class="toggle" id="modeBtn">🌙</button>
-
   <div class="avatar">
     <img src="https://image2url.com/r2/default/images/1769733035193-9fe76bda-cfd6-4539-bd77-aedd36018ec5.png">
   </div>
-
   <h1>Ruang Vita</h1>
   <div class="tagline">Ruang kecil untuk ide, cerita, dan semua karyaku 💖</div>
 
   <div class="links">
-    <div style="font-size:12px;font-weight:600;opacity:.7">✍️ KARYA</div>
-    <a href="https://halimunjingga.blogspot.com/">📝 Catatan Senja ›</a>
-    <a href="https://medium.com/@halimunjingga">✒️ Coretan Senja ›</a>
-    <a href="https://www.wattpad.com/halimunjinggaa">📖 Halimun Jingga — Book ›</a>
+    <div style="font-size:12px;opacity:.7">✍️ KARYA</div>
+    <a href="https://halimunjingga.blogspot.com/"><span>📝</span>Catatan Senja<span>›</span></a>
+    <a href="https://medium.com/@halimunjingga"><span>✒️</span>Coretan Senja<span>›</span></a>
+    <a href="https://www.wattpad.com/halimunjinggaa"><span>📖</span>Halimun Jingga — Book<span>›</span></a>
 
-    <div style="font-size:12px;font-weight:600;opacity:.7;margin-top:14px">🎧 SUARA & VIDEO</div>
-    <a href="#">🎙️ Surat Bersuara — Podcast ›</a>
-    <a href="https://www.youtube.com/@halimunjingga">🎧 Halimun Jingga | Suara & Cerita ›</a>
-    <a href="https://www.youtube.com/@behindvitascenes">🎬 Behind Vita Scenes ›</a>
+    <div style="font-size:12px;opacity:.7;margin-top:14px">🎧 SUARA & VIDEO</div>
+    <a href="#"><span>🎙️</span>Surat Bersuara — Podcast<span>›</span></a>
+    <a href="https://www.youtube.com/@halimunjingga"><span>🎧</span>Halimun Jingga — Audio<span>›</span></a>
+    <a href="https://www.youtube.com/@behindvitascenes"><span>🎬</span>Behind Vita Scenes<span>›</span></a>
 
-    <div style="font-size:12px;font-weight:600;opacity:.7;margin-top:14px">🌐 SOSIAL</div>
-    <a href="https://www.tiktok.com/@_halimunjingga">🎵 Si Jingga ›</a>
-    <a href="https://pin.it/3Xlu5nE05">📌 Moodboard Jingga ›</a>
-    <a href="https://www.instagram.com/_halimunjingga">📷 Halimun Jingga — Cerita ›</a>
+    <div style="font-size:12px;opacity:.7;margin-top:14px">🌐 SOSIAL</div>
+    <a href="https://www.tiktok.com/@_halimunjingga"><span>🎵</span>Si Jingga<span>›</span></a>
+    <a href="https://pin.it/3Xlu5nE05"><span>📌</span>Moodboard Jingga<span>›</span></a>
+    <a href="https://www.instagram.com/_halimunjingga"><span>📷</span>Halimun Jingga — Cerita<span>›</span></a>
 
-    <div style="font-size:12px;font-weight:600;opacity:.7;margin-top:14px">🛍️ SHOP</div>
-    <a href="https://www.instagram.com/svajonecraft">🧵 Svajone Craft — Shop ›</a>
+    <div style="font-size:12px;opacity:.7;margin-top:14px">🛍️ SHOP</div>
+    <a href="https://www.instagram.com/svajonecraft"><span>🧵</span>Svajone Craft — Shop<span>›</span></a>
   </div>
 
   <footer>© 2026 Vita Room</footer>
 </div>
 
+<button class="toggle" id="modeBtn">🌙</button>
 <div id="audioBtn">🎧 Play</div>
+
 <audio id="bgm" loop>
-  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_0a3c1a3c0d.mp3?filename=relaxing-meditation-112191.mp3" type="audio/mpeg">
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_0a3c1a3c0d.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-  const body=document.body,btn=document.getElementById('modeBtn');
-  const stars=document.getElementById('stars');
-  const hour=new Date().getHours();
-  if(hour>=18||hour<6) body.classList.add('dark');
+const body=document.body;
+const btn=document.getElementById('modeBtn');
+const stars=document.getElementById('stars');
+const audio=document.getElementById('bgm');
+const audioBtn=document.getElementById('audioBtn');
 
-  btn.onclick=()=>{body.classList.toggle('dark');
-    btn.textContent=body.classList.contains('dark')?'☀️':'🌙';
-    if(body.classList.contains('dark')) makeStars();
-    else stars.innerHTML='';
-  };
+if(new Date().getHours()>=18||new Date().getHours()<6) body.classList.add('dark');
 
-  function makeStars(n=120){
-    stars.innerHTML='';
-    for(let i=0;i<n;i++){
-      const s=document.createElement('span');
-      s.className='star';
-      s.style.left=Math.random()*100+'%';
-      s.style.top=Math.random()*100+'%';
-      s.style.animationDelay=Math.random()*3+'s';
-      stars.appendChild(s);
-    }
-  }
+btn.onclick=()=>{
+  body.classList.toggle('dark');
+  btn.textContent=body.classList.contains('dark')?'☀️':'🌙';
   if(body.classList.contains('dark')) makeStars();
+};
 
-  const audio=document.getElementById('bgm');
-  const audioBtn=document.getElementById('audioBtn');
-  let playing=false;
-  audioBtn.onclick=()=>{
-    if(!playing){audio.play();audioBtn.textContent='⏸ Pause';playing=true;}
-    else{audio.pause();audioBtn.textContent='🎧 Play';playing=false;}
+function makeStars(){
+  stars.innerHTML='';
+  for(let i=0;i<120;i++){
+    const s=document.createElement('div');
+    s.className='star';
+    s.style.left=Math.random()*100+'%';
+    s.style.top=Math.random()*100+'%';
+    s.style.animationDelay=Math.random()*3+'s';
+    stars.appendChild(s);
   }
+}
+if(body.classList.contains('dark')) makeStars();
+
+let playing=false;
+audioBtn.onclick=()=>{
+  if(!playing){audio.play();audioBtn.textContent='⏸ Pause';playing=true;}
+  else{audio.pause();audioBtn.textContent='🎧 Play';playing=false;}
+};
 </script>
+
 </body>
-</html>
+  </html>
