@@ -16,50 +16,45 @@ body{
   transition:1s ease;
 }
 
-/* 🌌 DARK MODE = LANGIT POLOS NAVY */
+/* 🌌 NIGHT SKY GRADIENT */
 body.dark{
-  background:radial-gradient(circle at top, #0d1b3d 0%, #050a1a 70%, #02040c 100%);
-  color:#dbe9ff;
+  background:
+    radial-gradient(circle at 50% 20%, rgba(180,200,255,0.12), transparent 40%),
+    radial-gradient(circle at 80% 60%, rgba(255,180,220,0.10), transparent 45%),
+    linear-gradient(180deg,#030817 0%,#081733 35%,#122a52 65%,#1e3b6f 100%);
+  color:#e6f0ff;
 }
 
-/* ===== STARS ===== */
+/* STARS */
 #stars{position:fixed;inset:0;pointer-events:none;z-index:0;display:none}
 body.dark #stars{display:block}
-.star{
-  position:absolute;width:2px;height:2px;
-  background:white;border-radius:50%;
-  opacity:.7;animation:twinkle 3s infinite
-}
+.star{position:absolute;width:2px;height:2px;background:white;border-radius:50%;opacity:.7;animation:twinkle 3s infinite}
 @keyframes twinkle{0%,100%{opacity:.2}50%{opacity:1}}
 
-/* ===== SHOOTING STAR ===== */
+/* SHOOTING STAR */
 .shooting-star{
-  position:absolute; width:120px; height:2px;
-  background:linear-gradient(90deg, rgba(255,255,255,.0), rgba(255,255,255,.9), rgba(255,255,255,0));
-  top:-20px; left:-20px;
-  transform:rotate(45deg);
+  position:absolute;width:140px;height:2px;
+  background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.9),rgba(255,255,255,0));
+  transform:rotate(45deg);opacity:.9;
   animation:shoot 1.2s ease-out forwards;
-  opacity:.9;
 }
 @keyframes shoot{
   from{transform:translate(-20vw,-20vh) rotate(45deg);opacity:1}
   to{transform:translate(120vw,120vh) rotate(45deg);opacity:0}
 }
 
-/* ===== CARD ===== */
+/* CARD */
 .card{
-  width:100%;max-width:420px;
-  max-height:92vh;overflow-y:auto;
+  width:100%;max-width:420px;max-height:92vh;overflow-y:auto;
   background:rgba(255,255,255,.92);
   border-radius:28px;padding:26px 22px 30px;
   box-shadow:0 16px 36px rgba(0,0,0,.18);
   text-align:center;z-index:2;
 }
-body.dark .card{background:rgba(12,18,38,.92)}
+body.dark .card{background:rgba(10,18,40,.92)}
 
 .avatar{width:96px;height:96px;margin:0 auto 12px;border-radius:50%;overflow:hidden}
 .avatar img{width:100%;height:100%;object-fit:cover}
-
 h1{font-family:'Marhey',cursive;font-size:40px;margin:6px 0 8px}
 .tagline{font-size:13px;opacity:.9;margin-bottom:22px}
 
@@ -75,14 +70,13 @@ h1{font-family:'Marhey',cursive;font-size:40px;margin:6px 0 8px}
 .links a:hover{transform:translateY(-3px) scale(1.02)}
 
 body.dark .links a{
-  background:linear-gradient(135deg,#0f1d3d,#09142e);
-  border:1px solid #2a3a6a;
-  color:#dbe9ff;
+  background:linear-gradient(135deg,#081733,#122a52);
+  border:1px solid #2e4b82;color:#e6f0ff;
 }
 
 footer{margin-top:16px;font-size:11px;opacity:.6}
 
-/* ===== BUTTONS ===== */
+/* BUTTONS */
 .toggle{
   position:fixed;left:16px;bottom:16px;
   width:42px;height:42px;border-radius:50%;
@@ -97,7 +91,7 @@ footer{margin-top:16px;font-size:11px;opacity:.6}
   font-size:14px;box-shadow:0 8px 20px rgba(0,0,0,.25);
   cursor:pointer;z-index:10
 }
-body.dark .toggle,body.dark #audioBtn{background:#0f1d3d;color:#fff}
+body.dark .toggle,body.dark #audioBtn{background:#081733;color:#fff}
 </style>
 </head>
 <body>
@@ -137,7 +131,6 @@ body.dark .toggle,body.dark #audioBtn{background:#0f1d3d;color:#fff}
 <button class="toggle" id="modeBtn">🌙</button>
 <div id="audioBtn">🎧 Play</div>
 
-<!-- 🎶 AUDIO: DAY & NIGHT -->
 <audio id="bgmDay" preload="auto" loop>
   <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_0a3c1a3c0d.mp3?filename=relaxing-meditation-112191.mp3" type="audio/mpeg">
 </audio>
@@ -146,19 +139,17 @@ body.dark .toggle,body.dark #audioBtn{background:#0f1d3d;color:#fff}
 </audio>
 
 <script>
-const body=document.body;
-const btn=document.getElementById('modeBtn');
+const body=document.body,btn=document.getElementById('modeBtn');
 const stars=document.getElementById('stars');
 const audioBtn=document.getElementById('audioBtn');
 const bgmDay=document.getElementById('bgmDay');
 const bgmNight=document.getElementById('bgmNight');
-
 let playing=false;
 
 // Auto dark by time
 if(new Date().getHours()>=18||new Date().getHours()<6) body.classList.add('dark');
 
-// ===== STARS =====
+// Stars
 function makeStars(){
   stars.innerHTML='';
   for(let i=0;i<160;i++){
@@ -172,55 +163,45 @@ function makeStars(){
 }
 if(body.classList.contains('dark')) makeStars();
 
-// ===== SHOOTING STAR (random) =====
+// Shooting stars random 1.5–3s
 function spawnShootingStar(){
   if(!body.classList.contains('dark')) return;
-  const star=document.createElement('div');
-  star.className='shooting-star';
-  star.style.top=Math.random()*50+'%';
-  star.style.left=Math.random()*30+'%';
-  document.body.appendChild(star);
-  setTimeout(()=>star.remove(),1200);
+  const s=document.createElement('div');
+  s.className='shooting-star';
+  s.style.top=Math.random()*50+'%';
+  s.style.left=Math.random()*30+'%';
+  document.body.appendChild(s);
+  setTimeout(()=>s.remove(),1200);
 }
-// Muncul tiap 6–12 detik
-setInterval(()=>{ if(Math.random()>0.5) spawnShootingStar(); }, 6000);
+(function loop(){
+  const delay=1500+Math.random()*1500;
+  setTimeout(()=>{spawnShootingStar();loop();},delay);
+})();
 
-// ===== MODE TOGGLE =====
+// Toggle mode
 btn.onclick=()=>{
   body.classList.toggle('dark');
   btn.textContent=body.classList.contains('dark')?'☀️':'🌙';
   if(body.classList.contains('dark')) makeStars();
-  // Ganti musik otomatis saat mode berubah
-  if(playing){
-    stopAll();
-    playCurrent();
-  }
+  if(playing){stopAll();playCurrent();}
 };
 
-// ===== MUSIC CONTROL =====
+// Music
 function stopAll(){
-  bgmDay.pause(); bgmDay.currentTime=0;
-  bgmNight.pause(); bgmNight.currentTime=0;
+  bgmDay.pause();bgmDay.currentTime=0;
+  bgmNight.pause();bgmNight.currentTime=0;
 }
 function playCurrent(){
-  const current = body.classList.contains('dark') ? bgmNight : bgmDay;
+  const current=body.classList.contains('dark')?bgmNight:bgmDay;
+  current.muted=false;
   current.play().then(()=>{
-    audioBtn.textContent='⏸ Pause';
-    playing=true;
-  }).catch(()=>{
-    alert('Tap layar dulu ya, baru klik Play 🎧');
-  });
+    audioBtn.textContent='⏸ Pause';playing=true;
+  }).catch(()=>alert("Tap layar dulu sekali, lalu klik 🎧 ya 💖"));
 }
-
-audioBtn.onclick=()=>{
-  if(!playing){
-    playCurrent();
-  }else{
-    stopAll();
-    audioBtn.textContent='🎧 Play';
-    playing=false;
-  }
-};
+audioBtn.addEventListener('click',()=>{
+  if(!playing){playCurrent();}
+  else{stopAll();audioBtn.textContent='🎧 Play';playing=false;}
+});
 </script>
 
 </body>
