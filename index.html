@@ -16,17 +16,37 @@ body{
   transition:1s ease;
 }
 
+/* 🌌 DARK MODE = LANGIT POLOS NAVY */
 body.dark{
-  background:linear-gradient(rgba(10,10,35,.9),rgba(10,10,35,.95)),
-  url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=80');
-  color:#f2d9ff;
+  background:radial-gradient(circle at top, #0d1b3d 0%, #050a1a 70%, #02040c 100%);
+  color:#dbe9ff;
 }
 
+/* ===== STARS ===== */
 #stars{position:fixed;inset:0;pointer-events:none;z-index:0;display:none}
 body.dark #stars{display:block}
-.star{position:absolute;width:2px;height:2px;background:white;border-radius:50%;opacity:.7;animation:twinkle 3s infinite}
+.star{
+  position:absolute;width:2px;height:2px;
+  background:white;border-radius:50%;
+  opacity:.7;animation:twinkle 3s infinite
+}
 @keyframes twinkle{0%,100%{opacity:.2}50%{opacity:1}}
 
+/* ===== SHOOTING STAR ===== */
+.shooting-star{
+  position:absolute; width:120px; height:2px;
+  background:linear-gradient(90deg, rgba(255,255,255,.0), rgba(255,255,255,.9), rgba(255,255,255,0));
+  top:-20px; left:-20px;
+  transform:rotate(45deg);
+  animation:shoot 1.2s ease-out forwards;
+  opacity:.9;
+}
+@keyframes shoot{
+  from{transform:translate(-20vw,-20vh) rotate(45deg);opacity:1}
+  to{transform:translate(120vw,120vh) rotate(45deg);opacity:0}
+}
+
+/* ===== CARD ===== */
 .card{
   width:100%;max-width:420px;
   max-height:92vh;overflow-y:auto;
@@ -35,7 +55,7 @@ body.dark #stars{display:block}
   box-shadow:0 16px 36px rgba(0,0,0,.18);
   text-align:center;z-index:2;
 }
-body.dark .card{background:rgba(20,20,40,.92)}
+body.dark .card{background:rgba(12,18,38,.92)}
 
 .avatar{width:96px;height:96px;margin:0 auto 12px;border-radius:50%;overflow:hidden}
 .avatar img{width:100%;height:100%;object-fit:cover}
@@ -55,12 +75,14 @@ h1{font-family:'Marhey',cursive;font-size:40px;margin:6px 0 8px}
 .links a:hover{transform:translateY(-3px) scale(1.02)}
 
 body.dark .links a{
-  background:linear-gradient(135deg,#2b2242,#1a1533);
-  border:1px solid #4b3b6b;color:#f2d9ff
+  background:linear-gradient(135deg,#0f1d3d,#09142e);
+  border:1px solid #2a3a6a;
+  color:#dbe9ff;
 }
 
 footer{margin-top:16px;font-size:11px;opacity:.6}
 
+/* ===== BUTTONS ===== */
 .toggle{
   position:fixed;left:16px;bottom:16px;
   width:42px;height:42px;border-radius:50%;
@@ -75,7 +97,7 @@ footer{margin-top:16px;font-size:11px;opacity:.6}
   font-size:14px;box-shadow:0 8px 20px rgba(0,0,0,.25);
   cursor:pointer;z-index:10
 }
-body.dark .toggle,body.dark #audioBtn{background:#2a2144;color:#fff}
+body.dark .toggle,body.dark #audioBtn{background:#0f1d3d;color:#fff}
 </style>
 </head>
 <body>
@@ -115,7 +137,11 @@ body.dark .toggle,body.dark #audioBtn{background:#2a2144;color:#fff}
 <button class="toggle" id="modeBtn">🌙</button>
 <div id="audioBtn">🎧 Play</div>
 
-<audio id="bgm" preload="auto" loop>
+<!-- 🎶 AUDIO: DAY & NIGHT -->
+<audio id="bgmDay" preload="auto" loop>
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_0a3c1a3c0d.mp3?filename=relaxing-meditation-112191.mp3" type="audio/mpeg">
+</audio>
+<audio id="bgmNight" preload="auto" loop>
   <source src="https://cdn.pixabay.com/download/audio/2023/03/21/audio_8a8f0c14b1.mp3?filename=relaxing-piano-145038.mp3" type="audio/mpeg">
 </audio>
 
@@ -123,20 +149,19 @@ body.dark .toggle,body.dark #audioBtn{background:#2a2144;color:#fff}
 const body=document.body;
 const btn=document.getElementById('modeBtn');
 const stars=document.getElementById('stars');
-const audio=document.getElementById('bgm');
 const audioBtn=document.getElementById('audioBtn');
+const bgmDay=document.getElementById('bgmDay');
+const bgmNight=document.getElementById('bgmNight');
 
+let playing=false;
+
+// Auto dark by time
 if(new Date().getHours()>=18||new Date().getHours()<6) body.classList.add('dark');
 
-btn.onclick=()=>{
-  body.classList.toggle('dark');
-  btn.textContent=body.classList.contains('dark')?'☀️':'🌙';
-  if(body.classList.contains('dark')) makeStars();
-};
-
+// ===== STARS =====
 function makeStars(){
   stars.innerHTML='';
-  for(let i=0;i<140;i++){
+  for(let i=0;i<160;i++){
     const s=document.createElement('div');
     s.className='star';
     s.style.left=Math.random()*100+'%';
@@ -147,17 +172,51 @@ function makeStars(){
 }
 if(body.classList.contains('dark')) makeStars();
 
-let playing=false;
+// ===== SHOOTING STAR (random) =====
+function spawnShootingStar(){
+  if(!body.classList.contains('dark')) return;
+  const star=document.createElement('div');
+  star.className='shooting-star';
+  star.style.top=Math.random()*50+'%';
+  star.style.left=Math.random()*30+'%';
+  document.body.appendChild(star);
+  setTimeout(()=>star.remove(),1200);
+}
+// Muncul tiap 6–12 detik
+setInterval(()=>{ if(Math.random()>0.5) spawnShootingStar(); }, 6000);
+
+// ===== MODE TOGGLE =====
+btn.onclick=()=>{
+  body.classList.toggle('dark');
+  btn.textContent=body.classList.contains('dark')?'☀️':'🌙';
+  if(body.classList.contains('dark')) makeStars();
+  // Ganti musik otomatis saat mode berubah
+  if(playing){
+    stopAll();
+    playCurrent();
+  }
+};
+
+// ===== MUSIC CONTROL =====
+function stopAll(){
+  bgmDay.pause(); bgmDay.currentTime=0;
+  bgmNight.pause(); bgmNight.currentTime=0;
+}
+function playCurrent(){
+  const current = body.classList.contains('dark') ? bgmNight : bgmDay;
+  current.play().then(()=>{
+    audioBtn.textContent='⏸ Pause';
+    playing=true;
+  }).catch(()=>{
+    alert('Tap layar dulu ya, baru klik Play 🎧');
+  });
+}
+
 audioBtn.onclick=()=>{
   if(!playing){
-    audio.play().then(()=>{
-      audioBtn.textContent='⏸ Pause';
-      playing=true;
-    }).catch(()=>{
-      alert('Tap layar dulu ya, baru klik Play 🎧');
-    });
+    playCurrent();
   }else{
-    audio.pause();
+    stopAll();
     audioBtn.textContent='🎧 Play';
     playing=false;
   }
