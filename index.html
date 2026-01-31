@@ -12,11 +12,7 @@
 /* ===== DAY MODE ===== */
 body{
   margin:0;min-height:100vh;font-family:'Montserrat',sans-serif;
-  background:
-    linear-gradient(rgba(255,230,239,.65),rgba(255,245,236,.65)),
-    url('https://i.imgur.com/OpCjk2q.jpeg');
-  background-size:cover;
-  background-position:center;
+  background:linear-gradient(rgba(255,230,239,.75),rgba(255,245,236,.75));
   display:flex;align-items:center;justify-content:center;
   transition:1s ease;
   color:#6b3c55;
@@ -82,6 +78,7 @@ body.dark .links a{
   background:linear-gradient(135deg,#0f1d3d,#09142e);
   border:1px solid #2a3a6a;
   color:#dbe9ff;
+  box-shadow:0 8px 22px rgba(0,0,0,.6);
 }
 
 /* ===== BUTTONS ===== */
@@ -141,10 +138,10 @@ body.dark .toggle,body.dark #audioBtn{background:#0f1d3d;color:#fff}
 <div id="audioBtn">🎧 Play</div>
 
 <audio id="bgmDay" loop>
-  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_0a3c1a3c0d.mp3?filename=relaxing-meditation-112191.mp3" type="audio/mpeg">
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_0a3c1a3c0d.mp3" type="audio/mpeg">
 </audio>
 <audio id="bgmNight" loop>
-  <source src="https://cdn.pixabay.com/download/audio/2023/03/21/audio_8a8f0c14b1.mp3?filename=relaxing-piano-145038.mp3" type="audio/mpeg">
+  <source src="https://cdn.pixabay.com/download/audio/2023/03/21/audio_8a8f0c14b1.mp3" type="audio/mpeg">
 </audio>
 
 <script>
@@ -156,7 +153,6 @@ const bgmDay=document.getElementById('bgmDay');
 const bgmNight=document.getElementById('bgmNight');
 let playing=false;
 
-// Auto dark by time
 if(new Date().getHours()>=18||new Date().getHours()<6) body.classList.add('dark');
 
 // Stars
@@ -173,7 +169,7 @@ function makeStars(){
 }
 if(body.classList.contains('dark')) makeStars();
 
-// Shooting star random 1.5–3s
+// Shooting star 1.5–3s
 function spawnShootingStar(){
   if(!body.classList.contains('dark')) return;
   const star=document.createElement('div');
@@ -183,14 +179,9 @@ function spawnShootingStar(){
   document.body.appendChild(star);
   setTimeout(()=>star.remove(),1200);
 }
-function loopShootingStar(){
-  const delay = Math.random()*1500+1500;
-  setTimeout(()=>{
-    spawnShootingStar();
-    loopShootingStar();
-  },delay);
-}
-loopShootingStar();
+(function loop(){
+  setTimeout(()=>{spawnShootingStar();loop();},Math.random()*1500+1500);
+})();
 
 // Toggle
 btn.onclick=()=>{
@@ -210,7 +201,7 @@ function playCurrent(){
   current.play().then(()=>{
     audioBtn.textContent='⏸ Pause';
     playing=true;
-  }).catch(()=>{alert('Tap layar dulu ya baru klik 🎧');});
+  }).catch(()=>alert('Tap layar dulu ya baru klik 🎧'));
 }
 audioBtn.onclick=()=>{
   if(!playing){playCurrent();}
