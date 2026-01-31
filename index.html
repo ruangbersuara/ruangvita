@@ -8,156 +8,109 @@
 
 <style>
 *{box-sizing:border-box}
-
-/* ===== DAY ===== */
 body{
   margin:0;min-height:100vh;font-family:'Montserrat',sans-serif;
-  background:
-    linear-gradient(rgba(255,230,239,.65),rgba(255,245,236,.65)),
-    url('https://image2url.com/r2/default/images/1769741410716-5879dc79-fc4c-4843-9936-45ebb839b02a.jpg');
-  background-size:cover;
-  background-position:center;
+  background:linear-gradient(rgba(255,230,239,.65),rgba(255,245,236,.65)),
+  url('https://image2url.com/r2/default/images/1769741410716-5879dc79-fc4c-4843-9936-45ebb839b02a.jpg');
+  background-size:cover;background-position:center;
   display:flex;align-items:center;justify-content:center;
-  transition:1s ease;
-  color:#6b3c55;
+  transition:1s ease;color:#6b3c55;
 }
-
-/* ===== NIGHT ===== */
 body.dark{
   background:linear-gradient(180deg,#020816 0%,#030b1a 40%,#050f2a 100%);
   color:#dbe9ff;
 }
 body.dark::before{
-  content:'';
-  position:fixed; inset:0;
+  content:'';position:fixed;inset:0;
   background:
     radial-gradient(circle at 8% 50%, rgba(120,160,255,.25), transparent 45%),
     radial-gradient(circle at 92% 50%, rgba(160,180,255,.25), transparent 45%);
   z-index:1;pointer-events:none;
 }
-
-/* ===== STARS ===== */
 #stars,#rain,#snow{position:fixed;inset:0;pointer-events:none;z-index:0;display:none}
 body.dark #stars{display:block}
-.star{
-  position:absolute;width:2px;height:2px;background:white;border-radius:50%;
-  opacity:.7;animation:twinkle 3s infinite
-}
+.star{position:absolute;width:2px;height:2px;background:white;border-radius:50%;opacity:.7;animation:twinkle 3s infinite}
 @keyframes twinkle{0%,100%{opacity:.2}50%{opacity:1}}
 
-/* ===== RAIN ===== */
-.rain-drop{
-  position:absolute;width:1px;height:14px;
-  background:rgba(200,220,255,.6);
-  animation:rain 1s linear infinite;
-}
+.rain-drop{position:absolute;width:1px;height:14px;background:rgba(200,220,255,.5);animation:rain 1s linear infinite}
 @keyframes rain{to{transform:translateY(110vh)}}
 
-/* ===== SNOW ❄️ ===== */
-.snowflake{
-  position:absolute;font-size:16px;opacity:.9;
-  animation:snow 8s linear infinite;
-}
-@keyframes snow{
-  0%{transform:translateY(-10vh) translateX(0)}
-  100%{transform:translateY(110vh) translateX(40px)}
-}
+.snowflake{position:absolute;font-size:14px;opacity:.8;animation:snow 8s linear infinite}
+@keyframes snow{0%{transform:translateY(-10vh)}100%{transform:translateY(110vh)}}
 
-/* ===== SHOOTING STAR ===== */
-.shooting-star{
-  position:absolute;width:120px;height:2px;
-  background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.9),rgba(255,255,255,0));
-  transform:rotate(45deg);
-  animation:shoot 1.2s ease-out forwards;
-}
-@keyframes shoot{
-  from{transform:translate(-20vw,-20vh) rotate(45deg);opacity:1}
-  to{transform:translate(120vw,120vh) rotate(45deg);opacity:0}
-}
+.shooting-star{position:absolute;width:120px;height:2px;
+background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.9),rgba(255,255,255,0));
+transform:rotate(45deg);animation:shoot 1.2s ease-out forwards}
+@keyframes shoot{from{transform:translate(-20vw,-20vh) rotate(45deg)}to{transform:translate(120vw,120vh) rotate(45deg);opacity:0}}
 
-/* ===== CARD ===== */
 .card{
   width:100%;max-width:420px;max-height:92vh;overflow-y:auto;
-  background:rgba(255,255,255,.92);
-  border-radius:28px;padding:26px 22px 30px;
-  box-shadow:0 16px 36px rgba(0,0,0,.18);
-  text-align:center;z-index:2;
+  background:rgba(255,255,255,.92);border-radius:28px;padding:26px 22px 30px;
+  box-shadow:0 16px 36px rgba(0,0,0,.18);text-align:center;z-index:2
 }
 body.dark .card{background:rgba(12,18,38,.92)}
-
+.avatar{width:96px;height:96px;margin:0 auto 12px;border-radius:50%;overflow:hidden}
+.avatar img{width:100%;height:100%;object-fit:cover}
 h1{font-family:'Marhey',cursive;font-size:40px;margin:6px 0 8px}
 .tagline{font-size:13px;opacity:.9;margin-bottom:22px}
 
-/* ===== LINKS ===== */
 .links a{
-  display:grid;grid-template-columns:28px 1fr 18px;align-items:center;gap:10px;
-  text-decoration:none;
+  display:grid;grid-template-columns:28px 1fr 18px;
+  align-items:center;gap:10px;text-decoration:none;
   background:linear-gradient(135deg,#fff,#ffe8f2);
   margin:10px 0;padding:14px 16px;border-radius:18px;
   font-weight:600;color:#5a2149;border:1px solid #ffd1e8;
-  box-shadow:0 6px 14px rgba(0,0,0,.12);transition:.3s ease;
+  box-shadow:0 6px 14px rgba(0,0,0,.12);transition:.3s ease
 }
 .links a:hover{transform:translateY(-3px) scale(1.02)}
 body.dark .links a{
   background:linear-gradient(135deg,#0c1b3a,#142a55,#0b1733);
-  border:1px solid rgba(120,160,255,.25);
-  color:#e6efff;
-  box-shadow:0 0 14px rgba(120,160,255,.12);
+  border:1px solid rgba(120,160,255,.25);color:#e6efff;
+  box-shadow:0 0 14px rgba(120,160,255,.12)
 }
 
-/* ===== CONTROLS ===== */
-.controls{
-  position:fixed;left:16px;bottom:16px;
-  display:flex;flex-direction:column;gap:10px;z-index:10
-}
-.controls button{
-  width:42px;height:42px;border-radius:50%;
-  border:none;font-size:18px;cursor:pointer;
-  background:rgba(255,255,255,.85);
-  box-shadow:0 6px 16px rgba(0,0,0,.25)
-}
+.controls{position:fixed;left:16px;bottom:16px;display:flex;flex-direction:column;gap:10px;z-index:10}
+.controls button{width:42px;height:42px;border-radius:50%;border:none;font-size:18px;cursor:pointer;
+background:rgba(255,255,255,.85);box-shadow:0 6px 16px rgba(0,0,0,.25)}
 body.dark .controls button{background:#0f1d3d;color:#fff}
-
-#audioBtn{
-  position:fixed;right:16px;bottom:16px;
-  background:rgba(255,255,255,.85);
-  border-radius:999px;padding:10px 14px;
-  font-size:14px;box-shadow:0 8px 20px rgba(0,0,0,.25);
-  cursor:pointer;z-index:10
-}
+#audioBtn{position:fixed;right:16px;bottom:16px;background:rgba(255,255,255,.85);
+border-radius:999px;padding:10px 14px;font-size:14px;box-shadow:0 8px 20px rgba(0,0,0,.25);
+cursor:pointer;z-index:10}
 body.dark #audioBtn{background:#0f1d3d;color:#fff}
 </style>
 </head>
 
 <body>
-
-<div id="stars"></div>
-<div id="rain"></div>
-<div id="snow"></div>
+<div id="stars"></div><div id="rain"></div><div id="snow"></div>
 
 <div class="card">
+  <div class="avatar">
+    <img src="https://image2url.com/r2/default/images/1769733035193-9fe76bda-cfd6-4539-bd77-aedd36018ec5.png">
+  </div>
   <h1>Ruang Vita</h1>
   <div class="tagline">Ruang kecil untuk ide, cerita, dan semua karyaku 💖</div>
 
   <div class="links">
     <div style="font-size:12px;opacity:.7">✍️ KARYA</div>
-    <a href="https://halimunjingga.blogspot.com/">📝 Catatan Senja ›</a>
-    <a href="https://medium.com/@halimunjingga">✒️ Coretan Senja ›</a>
-    <a href="https://www.wattpad.com/halimunjinggaa">📖 Halimun Jingga — Book ›</a>
+    <a href="https://halimunjingga.blogspot.com/"><span>📝</span>Catatan Senja<span>›</span></a>
+    <a href="https://medium.com/@halimunjingga"><span>✒️</span>Coretan Senja<span>›</span></a>
+    <a href="https://www.wattpad.com/halimunjinggaa"><span>📖</span>Halimun Jingga — Book<span>›</span></a>
 
     <div style="font-size:12px;opacity:.7;margin-top:14px">🎧 SUARA & VIDEO</div>
-    <a href="#">🎙️ Surat Bersuara — Podcast ›</a>
-    <a href="https://www.youtube.com/@halimunjingga">🎧 Halimun Jingga — Audio ›</a>
-    <a href="https://www.youtube.com/@behindvitascenes">🎬 Behind Vita Scenes ›</a>
+    <a href="#"><span>🎙️</span>Surat Bersuara — Podcast<span>›</span></a>
+    <a href="https://www.youtube.com/@halimunjingga"><span>🎧</span>Halimun Jingga — Audio<span>›</span></a>
+    <a href="https://www.youtube.com/@behindvitascenes"><span>🎬</span>Behind Vita Scenes<span>›</span></a>
 
     <div style="font-size:12px;opacity:.7;margin-top:14px">🌐 SOSIAL</div>
-    <a href="https://www.tiktok.com/@_halimunjingga">🎵 Si Jingga ›</a>
-    <a href="https://pin.it/3Xlu5nE05">📌 Moodboard Jingga ›</a>
-    <a href="https://www.instagram.com/_halimunjingga">📷 Halimun Jingga — Cerita ›</a>
+    <a href="https://www.tiktok.com/@_halimunjingga"><span>🎵</span>Si Jingga<span>›</span></a>
+    <a href="https://pin.it/3Xlu5nE05"><span>📌</span>Moodboard Jingga<span>›</span></a>
+    <a href="https://www.instagram.com/_halimunjingga"><span>📷</span>Halimun Jingga — Cerita<span>›</span></a>
 
     <div style="font-size:12px;opacity:.7;margin-top:14px">🛍️ SHOP</div>
-    <a href="https://www.instagram.com/svajonecraft">🧵 Svajone Craft — Shop ›</a>
+    <a href="https://www.instagram.com/svajonecraft"><span>🧵</span>Svajone Craft — Shop<span>›</span></a>
   </div>
+
+  <footer>© 2026 Vita Room</footer>
 </div>
 
 <div class="controls">
@@ -183,55 +136,27 @@ bgmNight=document.getElementById('bgmNight');
 let weather="none",playing=false;
 if(new Date().getHours()>=18||new Date().getHours()<6) body.classList.add('dark');
 
-function makeStars(){
-  stars.innerHTML='';
-  for(let i=0;i<220;i++){
-    const s=document.createElement('div');
-    s.className='star';
-    s.style.left=Math.random()*100+'%';
-    s.style.top=Math.random()*100+'%';
-    s.style.animationDelay=Math.random()*3+'s';
-    stars.appendChild(s);
-  }
-}
+function makeStars(){stars.innerHTML='';for(let i=0;i<220;i++){const s=document.createElement('div');
+s.className='star';s.style.left=Math.random()*100+'%';s.style.top=Math.random()*100+'%';
+s.style.animationDelay=Math.random()*3+'s';stars.appendChild(s)}}
 if(body.classList.contains('dark')) makeStars();
 
-(function shoot(){
-  if(body.classList.contains('dark')){
-    const s=document.createElement('div');
-    s.className='shooting-star';
-    s.style.top=Math.random()*40+'%';
-    s.style.left=Math.random()*30+'%';
-    document.body.appendChild(s);
-    setTimeout(()=>s.remove(),1200);
-  }
-  setTimeout(shoot,Math.random()*2000+1500);
-})();
+(function shoot(){if(body.classList.contains('dark')){
+const s=document.createElement('div');s.className='shooting-star';
+s.style.top=Math.random()*40+'%';s.style.left=Math.random()*30+'%';
+document.body.appendChild(s);setTimeout(()=>s.remove(),1200)}
+setTimeout(shoot,Math.random()*2000+1500)})();
 
-function makeRain(){
-  rain.innerHTML='';
-  for(let i=0;i<120;i++){
-    const d=document.createElement('div');
-    d.className='rain-drop';
-    d.style.left=Math.random()*100+'%';
-    d.style.top=Math.random()*-100+'px';
-    d.style.animationDelay=Math.random()+'s';
-    rain.appendChild(d);
-  }
-}
-function makeSnow(){
-  snow.innerHTML='';
-  for(let i=0;i<60;i++){
-    const f=document.createElement('div');
-    f.className='snowflake';
-    f.textContent='❄️';
-    f.style.left=Math.random()*100+'%';
-    f.style.top=Math.random()*-100+'px';
-    f.style.fontSize=12+Math.random()*14+'px';
-    f.style.animationDelay=Math.random()*5+'s';
-    snow.appendChild(f);
-  }
-}
+function makeRain(){rain.innerHTML='';for(let i=0;i<120;i++){
+const d=document.createElement('div');d.className='rain-drop';
+d.style.left=Math.random()*100+'%';d.style.top=Math.random()*-100+'px';
+d.style.animationDelay=Math.random()+'s';rain.appendChild(d)}}
+
+function makeSnow(){snow.innerHTML='';for(let i=0;i<60;i++){
+const f=document.createElement('div');f.className='snowflake';f.textContent='❄️';
+f.style.left=Math.random()*100+'%';f.style.top=Math.random()*-100+'px';
+f.style.fontSize=12+Math.random()*14+'px';f.style.animationDelay=Math.random()*5+'s';
+snow.appendChild(f)}}
 
 weatherBtn.onclick=()=>{
   if(weather==="none"){weather="rain";rain.style.display='block';snow.style.display='none';makeRain();weatherBtn.textContent="❄️";}
@@ -245,19 +170,12 @@ modeBtn.onclick=()=>{
   if(body.classList.contains('dark')) makeStars();
 };
 
-function stopAll(){
-  bgmDay.pause();bgmDay.currentTime=0;
-  bgmNight.pause();bgmNight.currentTime=0;
-}
+function stopAll(){bgmDay.pause();bgmDay.currentTime=0;bgmNight.pause();bgmNight.currentTime=0;}
 function playCurrent(){
   const cur=body.classList.contains('dark')?bgmNight:bgmDay;
   cur.play().then(()=>{audioBtn.textContent='⏸ Pause';playing=true;});
 }
-audioBtn.onclick=()=>{
-  if(!playing) playCurrent();
-  else{stopAll();audioBtn.textContent='🎧 Play';playing=false;}
-};
+audioBtn.onclick=()=>{if(!playing) playCurrent();else{stopAll();audioBtn.textContent='🎧 Play';playing=false;}};
 </script>
-
 </body>
-</html>
+  </html>
