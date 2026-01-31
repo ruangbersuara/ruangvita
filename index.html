@@ -8,6 +8,8 @@
 
 <style>
 *{box-sizing:border-box}
+
+/* ===== DAY ===== */
 body{
   margin:0;min-height:100vh;font-family:'Montserrat',sans-serif;
   background:
@@ -19,6 +21,8 @@ body{
   transition:1s ease;
   color:#6b3c55;
 }
+
+/* ===== NIGHT ===== */
 body.dark{
   background:linear-gradient(180deg,#020816 0%,#030b1a 40%,#050f2a 100%);
   color:#dbe9ff;
@@ -31,15 +35,17 @@ body.dark::before{
     radial-gradient(circle at 92% 50%, rgba(160,180,255,.25), transparent 45%);
   z-index:1;pointer-events:none;
 }
+
+/* ===== STARS ===== */
 #stars,#rain,#snow{position:fixed;inset:0;pointer-events:none;z-index:0;display:none}
 body.dark #stars{display:block}
 .star{
-  position:absolute;width:2px;height:2px;
-  background:white;border-radius:50%;
+  position:absolute;width:2px;height:2px;background:white;border-radius:50%;
   opacity:.7;animation:twinkle 3s infinite
 }
 @keyframes twinkle{0%,100%{opacity:.2}50%{opacity:1}}
 
+/* ===== RAIN ===== */
 .rain-drop{
   position:absolute;width:1px;height:14px;
   background:rgba(200,220,255,.6);
@@ -47,13 +53,17 @@ body.dark #stars{display:block}
 }
 @keyframes rain{to{transform:translateY(110vh)}}
 
-.snow-flake{
-  position:absolute;width:6px;height:6px;border-radius:50%;
-  background:white;opacity:.8;
-  animation:snow 6s linear infinite;
+/* ===== SNOW ❄️ ===== */
+.snowflake{
+  position:absolute;font-size:16px;opacity:.9;
+  animation:snow 8s linear infinite;
 }
-@keyframes snow{to{transform:translateY(110vh) translateX(30px)}}
+@keyframes snow{
+  0%{transform:translateY(-10vh) translateX(0)}
+  100%{transform:translateY(110vh) translateX(40px)}
+}
 
+/* ===== SHOOTING STAR ===== */
 .shooting-star{
   position:absolute;width:120px;height:2px;
   background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.9),rgba(255,255,255,0));
@@ -65,9 +75,9 @@ body.dark #stars{display:block}
   to{transform:translate(120vw,120vh) rotate(45deg);opacity:0}
 }
 
+/* ===== CARD ===== */
 .card{
-  width:100%;max-width:420px;
-  max-height:92vh;overflow-y:auto;
+  width:100%;max-width:420px;max-height:92vh;overflow-y:auto;
   background:rgba(255,255,255,.92);
   border-radius:28px;padding:26px 22px 30px;
   box-shadow:0 16px 36px rgba(0,0,0,.18);
@@ -75,6 +85,27 @@ body.dark #stars{display:block}
 }
 body.dark .card{background:rgba(12,18,38,.92)}
 
+h1{font-family:'Marhey',cursive;font-size:40px;margin:6px 0 8px}
+.tagline{font-size:13px;opacity:.9;margin-bottom:22px}
+
+/* ===== LINKS ===== */
+.links a{
+  display:grid;grid-template-columns:28px 1fr 18px;align-items:center;gap:10px;
+  text-decoration:none;
+  background:linear-gradient(135deg,#fff,#ffe8f2);
+  margin:10px 0;padding:14px 16px;border-radius:18px;
+  font-weight:600;color:#5a2149;border:1px solid #ffd1e8;
+  box-shadow:0 6px 14px rgba(0,0,0,.12);transition:.3s ease;
+}
+.links a:hover{transform:translateY(-3px) scale(1.02)}
+body.dark .links a{
+  background:linear-gradient(135deg,#0c1b3a,#142a55,#0b1733);
+  border:1px solid rgba(120,160,255,.25);
+  color:#e6efff;
+  box-shadow:0 0 14px rgba(120,160,255,.12);
+}
+
+/* ===== CONTROLS ===== */
 .controls{
   position:fixed;left:16px;bottom:16px;
   display:flex;flex-direction:column;gap:10px;z-index:10
@@ -86,6 +117,15 @@ body.dark .card{background:rgba(12,18,38,.92)}
   box-shadow:0 6px 16px rgba(0,0,0,.25)
 }
 body.dark .controls button{background:#0f1d3d;color:#fff}
+
+#audioBtn{
+  position:fixed;right:16px;bottom:16px;
+  background:rgba(255,255,255,.85);
+  border-radius:999px;padding:10px 14px;
+  font-size:14px;box-shadow:0 8px 20px rgba(0,0,0,.25);
+  cursor:pointer;z-index:10
+}
+body.dark #audioBtn{background:#0f1d3d;color:#fff}
 </style>
 </head>
 
@@ -98,27 +138,51 @@ body.dark .controls button{background:#0f1d3d;color:#fff}
 <div class="card">
   <h1>Ruang Vita</h1>
   <div class="tagline">Ruang kecil untuk ide, cerita, dan semua karyaku 💖</div>
+
+  <div class="links">
+    <div style="font-size:12px;opacity:.7">✍️ KARYA</div>
+    <a href="https://halimunjingga.blogspot.com/">📝 Catatan Senja ›</a>
+    <a href="https://medium.com/@halimunjingga">✒️ Coretan Senja ›</a>
+    <a href="https://www.wattpad.com/halimunjinggaa">📖 Halimun Jingga — Book ›</a>
+
+    <div style="font-size:12px;opacity:.7;margin-top:14px">🎧 SUARA & VIDEO</div>
+    <a href="#">🎙️ Surat Bersuara — Podcast ›</a>
+    <a href="https://www.youtube.com/@halimunjingga">🎧 Halimun Jingga — Audio ›</a>
+    <a href="https://www.youtube.com/@behindvitascenes">🎬 Behind Vita Scenes ›</a>
+
+    <div style="font-size:12px;opacity:.7;margin-top:14px">🌐 SOSIAL</div>
+    <a href="https://www.tiktok.com/@_halimunjingga">🎵 Si Jingga ›</a>
+    <a href="https://pin.it/3Xlu5nE05">📌 Moodboard Jingga ›</a>
+    <a href="https://www.instagram.com/_halimunjingga">📷 Halimun Jingga — Cerita ›</a>
+
+    <div style="font-size:12px;opacity:.7;margin-top:14px">🛍️ SHOP</div>
+    <a href="https://www.instagram.com/svajonecraft">🧵 Svajone Craft — Shop ›</a>
+  </div>
 </div>
 
 <div class="controls">
   <button id="weatherBtn">🌧️</button>
   <button id="modeBtn">🌙</button>
 </div>
+<div id="audioBtn">🎧 Play</div>
+
+<audio id="bgmDay" loop>
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_0a3c1a3c0d.mp3">
+</audio>
+<audio id="bgmNight" loop>
+  <source src="https://cdn.pixabay.com/download/audio/2023/03/21/audio_8a8f0c14b1.mp3">
+</audio>
 
 <script>
-const body=document.body;
-const stars=document.getElementById('stars');
-const rain=document.getElementById('rain');
-const snow=document.getElementById('snow');
-const modeBtn=document.getElementById('modeBtn');
-const weatherBtn=document.getElementById('weatherBtn');
+const body=document.body,stars=document.getElementById('stars'),
+rain=document.getElementById('rain'),snow=document.getElementById('snow'),
+modeBtn=document.getElementById('modeBtn'),weatherBtn=document.getElementById('weatherBtn'),
+audioBtn=document.getElementById('audioBtn'),bgmDay=document.getElementById('bgmDay'),
+bgmNight=document.getElementById('bgmNight');
 
-let weather="none";
-
-// Auto dark by time
+let weather="none",playing=false;
 if(new Date().getHours()>=18||new Date().getHours()<6) body.classList.add('dark');
 
-// Stars
 function makeStars(){
   stars.innerHTML='';
   for(let i=0;i<220;i++){
@@ -132,20 +196,18 @@ function makeStars(){
 }
 if(body.classList.contains('dark')) makeStars();
 
-// Shooting stars
-function shooting(){
-  if(!body.classList.contains('dark')) return;
-  const s=document.createElement('div');
-  s.className='shooting-star';
-  s.style.top=Math.random()*40+'%';
-  s.style.left=Math.random()*30+'%';
-  document.body.appendChild(s);
-  setTimeout(()=>s.remove(),1200);
-  setTimeout(shooting,Math.random()*2000+1500);
-}
-shooting();
+(function shoot(){
+  if(body.classList.contains('dark')){
+    const s=document.createElement('div');
+    s.className='shooting-star';
+    s.style.top=Math.random()*40+'%';
+    s.style.left=Math.random()*30+'%';
+    document.body.appendChild(s);
+    setTimeout(()=>s.remove(),1200);
+  }
+  setTimeout(shoot,Math.random()*2000+1500);
+})();
 
-// Weather
 function makeRain(){
   rain.innerHTML='';
   for(let i=0;i<120;i++){
@@ -159,11 +221,13 @@ function makeRain(){
 }
 function makeSnow(){
   snow.innerHTML='';
-  for(let i=0;i<80;i++){
+  for(let i=0;i<60;i++){
     const f=document.createElement('div');
-    f.className='snow-flake';
+    f.className='snowflake';
+    f.textContent='❄️';
     f.style.left=Math.random()*100+'%';
     f.style.top=Math.random()*-100+'px';
+    f.style.fontSize=12+Math.random()*14+'px';
     f.style.animationDelay=Math.random()*5+'s';
     snow.appendChild(f);
   }
@@ -175,11 +239,23 @@ weatherBtn.onclick=()=>{
   else{weather="none";rain.style.display='none';snow.style.display='none';weatherBtn.textContent="🌧️";}
 };
 
-// Mode
 modeBtn.onclick=()=>{
   body.classList.toggle('dark');
   modeBtn.textContent=body.classList.contains('dark')?'☀️':'🌙';
   if(body.classList.contains('dark')) makeStars();
+};
+
+function stopAll(){
+  bgmDay.pause();bgmDay.currentTime=0;
+  bgmNight.pause();bgmNight.currentTime=0;
+}
+function playCurrent(){
+  const cur=body.classList.contains('dark')?bgmNight:bgmDay;
+  cur.play().then(()=>{audioBtn.textContent='⏸ Pause';playing=true;});
+}
+audioBtn.onclick=()=>{
+  if(!playing) playCurrent();
+  else{stopAll();audioBtn.textContent='🎧 Play';playing=false;}
 };
 </script>
 
