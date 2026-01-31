@@ -8,8 +8,6 @@
 
 <style>
 *{box-sizing:border-box}
-
-/* ===== DAY MODE ===== */
 body{
   margin:0;min-height:100vh;font-family:'Montserrat',sans-serif;
   background:
@@ -21,26 +19,19 @@ body{
   transition:1s ease;
   color:#6b3c55;
 }
-
-/* ===== NIGHT MODE – FULL NAVY SKY ===== */
 body.dark{
   background:linear-gradient(180deg,#020816 0%,#030b1a 40%,#050f2a 100%);
   color:#dbe9ff;
 }
-
-/* ===== NEBULA (KIRI & KANAN SAJA) ===== */
 body.dark::before{
   content:'';
   position:fixed; inset:0;
   background:
     radial-gradient(circle at 8% 50%, rgba(120,160,255,.25), transparent 45%),
     radial-gradient(circle at 92% 50%, rgba(160,180,255,.25), transparent 45%);
-  z-index:1;
-  pointer-events:none;
+  z-index:1;pointer-events:none;
 }
-
-/* ===== STARS ===== */
-#stars{position:fixed;inset:0;pointer-events:none;z-index:0;display:none}
+#stars,#rain,#snow{position:fixed;inset:0;pointer-events:none;z-index:0;display:none}
 body.dark #stars{display:block}
 .star{
   position:absolute;width:2px;height:2px;
@@ -49,7 +40,20 @@ body.dark #stars{display:block}
 }
 @keyframes twinkle{0%,100%{opacity:.2}50%{opacity:1}}
 
-/* ===== SHOOTING STAR ===== */
+.rain-drop{
+  position:absolute;width:1px;height:14px;
+  background:rgba(200,220,255,.6);
+  animation:rain 1s linear infinite;
+}
+@keyframes rain{to{transform:translateY(110vh)}}
+
+.snow-flake{
+  position:absolute;width:6px;height:6px;border-radius:50%;
+  background:white;opacity:.8;
+  animation:snow 6s linear infinite;
+}
+@keyframes snow{to{transform:translateY(110vh) translateX(30px)}}
+
 .shooting-star{
   position:absolute;width:120px;height:2px;
   background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.9),rgba(255,255,255,0));
@@ -61,7 +65,6 @@ body.dark #stars{display:block}
   to{transform:translate(120vw,120vh) rotate(45deg);opacity:0}
 }
 
-/* ===== CARD ===== */
 .card{
   width:100%;max-width:420px;
   max-height:92vh;overflow-y:auto;
@@ -72,117 +75,56 @@ body.dark #stars{display:block}
 }
 body.dark .card{background:rgba(12,18,38,.92)}
 
-.avatar{width:96px;height:96px;margin:0 auto 12px;border-radius:50%;overflow:hidden}
-.avatar img{width:100%;height:100%;object-fit:cover}
-
-h1{font-family:'Marhey',cursive;font-size:40px;margin:6px 0 8px}
-.tagline{font-size:13px;opacity:.9;margin-bottom:22px}
-
-/* ===== LINK BAR ===== */
-.links a{
-  display:grid;grid-template-columns:28px 1fr 18px;
-  align-items:center;gap:10px;text-decoration:none;
-  background:linear-gradient(135deg,#fff,#ffe8f2);
-  margin:10px 0;padding:14px 16px;border-radius:18px;
-  font-weight:600;color:#5a2149;border:1px solid #ffd1e8;
-  box-shadow:0 6px 14px rgba(0,0,0,.12);
-  transition:.3s ease;
-}
-.links a:hover{transform:translateY(-3px) scale(1.02)}
-
-body.dark .links a{
-  background:linear-gradient(135deg,#0c1b3a,#142a55,#0b1733);
-  border:1px solid rgba(120,160,255,.25);
-  color:#e6efff;
-  box-shadow:0 0 14px rgba(120,160,255,.12);
-}
-
-/* ===== BUTTONS ===== */
-.toggle{
+.controls{
   position:fixed;left:16px;bottom:16px;
+  display:flex;flex-direction:column;gap:10px;z-index:10
+}
+.controls button{
   width:42px;height:42px;border-radius:50%;
   border:none;font-size:18px;cursor:pointer;
   background:rgba(255,255,255,.85);
-  box-shadow:0 6px 16px rgba(0,0,0,.25);z-index:10
+  box-shadow:0 6px 16px rgba(0,0,0,.25)
 }
-#audioBtn{
-  position:fixed;right:16px;bottom:16px;
-  background:rgba(255,255,255,.85);
-  border-radius:999px;padding:10px 14px;
-  font-size:14px;box-shadow:0 8px 20px rgba(0,0,0,.25);
-  cursor:pointer;z-index:10
-}
-body.dark .toggle,body.dark #audioBtn{background:#0f1d3d;color:#fff}
+body.dark .controls button{background:#0f1d3d;color:#fff}
 </style>
 </head>
 
 <body>
 
 <div id="stars"></div>
+<div id="rain"></div>
+<div id="snow"></div>
 
 <div class="card">
-  <div class="avatar">
-    <img src="https://image2url.com/r2/default/images/1769733035193-9fe76bda-cfd6-4539-bd77-aedd36018ec5.png">
-  </div>
   <h1>Ruang Vita</h1>
   <div class="tagline">Ruang kecil untuk ide, cerita, dan semua karyaku 💖</div>
-
-  <div class="links">
-    <div style="font-size:12px;opacity:.7">✍️ KARYA</div>
-    <a href="https://halimunjingga.blogspot.com/"><span>📝</span>Catatan Senja<span>›</span></a>
-    <a href="https://medium.com/@halimunjingga"><span>✒️</span>Coretan Senja<span>›</span></a>
-    <a href="https://www.wattpad.com/halimunjinggaa"><span>📖</span>Halimun Jingga — Book<span>›</span></a>
-
-    <div style="font-size:12px;opacity:.7;margin-top:14px">🎧 SUARA & VIDEO</div>
-    <a href="#"><span>🎙️</span>Surat Bersuara — Podcast<span>›</span></a>
-    <a href="https://www.youtube.com/@halimunjingga"><span>🎧</span>Halimun Jingga — Audio<span>›</span></a>
-    <a href="https://www.youtube.com/@behindvitascenes"><span>🎬</span>Behind Vita Scenes<span>›</span></a>
-
-    <div style="font-size:12px;opacity:.7;margin-top:14px">🌐 SOSIAL</div>
-    <a href="https://www.tiktok.com/@_halimunjingga"><span>🎵</span>Si Jingga<span>›</span></a>
-    <a href="https://pin.it/3Xlu5nE05"><span>📌</span>Moodboard Jingga<span>›</span></a>
-    <a href="https://www.instagram.com/_halimunjingga"><span>📷</span>Halimun Jingga — Cerita<span>›</span></a>
-
-    <div style="font-size:12px;opacity:.7;margin-top:14px">🛍️ SHOP</div>
-    <a href="https://www.instagram.com/svajonecraft"><span>🧵</span>Svajone Craft — Shop<span>›</span></a>
-  </div>
-
-  <footer>© 2026 Vita Room</footer>
 </div>
 
-<button class="toggle" id="modeBtn">🌙</button>
-<div id="audioBtn">🎧 Play</div>
-
-<audio id="bgmDay" loop>
-  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_0a3c1a3c0d.mp3" type="audio/mpeg">
-</audio>
-<audio id="bgmNight" loop>
-  <source src="https://cdn.pixabay.com/download/audio/2023/03/21/audio_8a8f0c14b1.mp3" type="audio/mpeg">
-</audio>
+<div class="controls">
+  <button id="weatherBtn">🌧️</button>
+  <button id="modeBtn">🌙</button>
+</div>
 
 <script>
 const body=document.body;
-const btn=document.getElementById('modeBtn');
 const stars=document.getElementById('stars');
-const audioBtn=document.getElementById('audioBtn');
-const bgmDay=document.getElementById('bgmDay');
-const bgmNight=document.getElementById('bgmNight');
-let playing=false;
+const rain=document.getElementById('rain');
+const snow=document.getElementById('snow');
+const modeBtn=document.getElementById('modeBtn');
+const weatherBtn=document.getElementById('weatherBtn');
 
-// Auto dark
+let weather="none";
+
+// Auto dark by time
 if(new Date().getHours()>=18||new Date().getHours()<6) body.classList.add('dark');
 
-// Stars (lebih padat di kiri & kanan)
+// Stars
 function makeStars(){
   stars.innerHTML='';
   for(let i=0;i<220;i++){
     const s=document.createElement('div');
     s.className='star';
-    let x=Math.random()*100;
-    if(Math.random()>0.6){
-      x=Math.random()>0.5?Math.random()*15:85+Math.random()*15;
-    }
-    s.style.left=x+'%';
+    s.style.left=Math.random()*100+'%';
     s.style.top=Math.random()*100+'%';
     s.style.animationDelay=Math.random()*3+'s';
     stars.appendChild(s);
@@ -190,45 +132,54 @@ function makeStars(){
 }
 if(body.classList.contains('dark')) makeStars();
 
-// Shooting star loop
-function spawnShootingStar(){
+// Shooting stars
+function shooting(){
   if(!body.classList.contains('dark')) return;
-  const star=document.createElement('div');
-  star.className='shooting-star';
-  star.style.top=Math.random()*50+'%';
-  star.style.left=Math.random()*30+'%';
-  document.body.appendChild(star);
-  setTimeout(()=>star.remove(),1200);
+  const s=document.createElement('div');
+  s.className='shooting-star';
+  s.style.top=Math.random()*40+'%';
+  s.style.left=Math.random()*30+'%';
+  document.body.appendChild(s);
+  setTimeout(()=>s.remove(),1200);
+  setTimeout(shooting,Math.random()*2000+1500);
 }
-function loopShootingStar(){
-  const delay=Math.random()*1500+1500;
-  setTimeout(()=>{spawnShootingStar();loopShootingStar();},delay);
-}
-loopShootingStar();
+shooting();
 
-// Toggle
-btn.onclick=()=>{
-  body.classList.toggle('dark');
-  btn.textContent=body.classList.contains('dark')?'☀️':'🌙';
-  if(body.classList.contains('dark')) makeStars();
-  if(playing){stopAll();playCurrent();}
+// Weather
+function makeRain(){
+  rain.innerHTML='';
+  for(let i=0;i<120;i++){
+    const d=document.createElement('div');
+    d.className='rain-drop';
+    d.style.left=Math.random()*100+'%';
+    d.style.top=Math.random()*-100+'px';
+    d.style.animationDelay=Math.random()+'s';
+    rain.appendChild(d);
+  }
+}
+function makeSnow(){
+  snow.innerHTML='';
+  for(let i=0;i<80;i++){
+    const f=document.createElement('div');
+    f.className='snow-flake';
+    f.style.left=Math.random()*100+'%';
+    f.style.top=Math.random()*-100+'px';
+    f.style.animationDelay=Math.random()*5+'s';
+    snow.appendChild(f);
+  }
+}
+
+weatherBtn.onclick=()=>{
+  if(weather==="none"){weather="rain";rain.style.display='block';snow.style.display='none';makeRain();weatherBtn.textContent="❄️";}
+  else if(weather==="rain"){weather="snow";snow.style.display='block';rain.style.display='none';makeSnow();weatherBtn.textContent="🌧️";}
+  else{weather="none";rain.style.display='none';snow.style.display='none';weatherBtn.textContent="🌧️";}
 };
 
-// Music
-function stopAll(){
-  bgmDay.pause();bgmDay.currentTime=0;
-  bgmNight.pause();bgmNight.currentTime=0;
-}
-function playCurrent(){
-  const current=body.classList.contains('dark')?bgmNight:bgmDay;
-  current.play().then(()=>{
-    audioBtn.textContent='⏸ Pause';
-    playing=true;
-  }).catch(()=>{alert('Tap layar dulu ya, lalu klik 🎧');});
-}
-audioBtn.onclick=()=>{
-  if(!playing){playCurrent();}
-  else{stopAll();audioBtn.textContent='🎧 Play';playing=false;}
+// Mode
+modeBtn.onclick=()=>{
+  body.classList.toggle('dark');
+  modeBtn.textContent=body.classList.contains('dark')?'☀️':'🌙';
+  if(body.classList.contains('dark')) makeStars();
 };
 </script>
 
