@@ -9,12 +9,12 @@
 <style>
 *{box-sizing:border-box}
 
-/* ===== DAY MODE (FIX PUNYAMU) ===== */
+/* ===== DAY MODE ===== */
 body{
   margin:0;min-height:100vh;font-family:'Montserrat',sans-serif;
   background:
     linear-gradient(rgba(255,230,239,.65),rgba(255,245,236,.65)),
-    url('https://i.imgur.com/OpCjk2q.jpeg');
+    url('https://image2url.com/r2/default/images/1769741410716-5879dc79-fc4c-4843-9936-45ebb839b02a.jpg');
   background-size:cover;
   background-position:center;
   display:flex;align-items:center;justify-content:center;
@@ -22,14 +22,26 @@ body{
   color:#6b3c55;
 }
 
-/* ===== NIGHT MODE = GALAXY NAVY BLUE ===== */
+/* ===== NIGHT MODE – NEBULA DREAM SKY ===== */
 body.dark{
   background:
-    radial-gradient(circle at 20% 30%, rgba(60,120,255,.25), transparent 40%),
-    radial-gradient(circle at 80% 20%, rgba(120,80,255,.20), transparent 45%),
-    radial-gradient(circle at 50% 80%, rgba(40,100,255,.15), transparent 50%),
+    radial-gradient(circle at 30% 20%, rgba(90,130,255,.25), transparent 45%),
+    radial-gradient(circle at 70% 60%, rgba(120,90,255,.18), transparent 50%),
+    radial-gradient(circle at 50% 85%, rgba(80,140,255,.15), transparent 55%),
     linear-gradient(180deg, #020816 0%, #07142e 40%, #0b1f44 70%, #030b1a 100%);
   color:#dbe9ff;
+}
+
+/* ===== NEBULA CLOUD GLOW ===== */
+body.dark::before{
+  content:'';
+  position:fixed;inset:0;
+  background:
+    radial-gradient(circle at 20% 80%, rgba(140,170,255,.12), transparent 45%),
+    radial-gradient(circle at 80% 25%, rgba(180,200,255,.10), transparent 50%),
+    radial-gradient(circle at 55% 50%, rgba(100,140,255,.08), transparent 60%);
+  z-index:1;
+  pointer-events:none;
 }
 
 /* ===== STARS ===== */
@@ -63,7 +75,7 @@ body.dark #stars{display:block}
   box-shadow:0 16px 36px rgba(0,0,0,.18);
   text-align:center;z-index:2;
 }
-body.dark .card{background:rgba(10,16,36,.92)}
+body.dark .card{background:rgba(12,18,38,.92)}
 
 .avatar{width:96px;height:96px;margin:0 auto 12px;border-radius:50%;overflow:hidden}
 .avatar img{width:100%;height:100%;object-fit:cover}
@@ -83,8 +95,8 @@ h1{font-family:'Marhey',cursive;font-size:40px;margin:6px 0 8px}
 .links a:hover{transform:translateY(-3px) scale(1.02)}
 
 body.dark .links a{
-  background:linear-gradient(135deg,#0b1b3d,#07142e);
-  border:1px solid #1f3a66;
+  background:linear-gradient(135deg,#0f1d3d,#09142e);
+  border:1px solid #2a3a6a;
   color:#dbe9ff;
 }
 
@@ -103,7 +115,7 @@ body.dark .links a{
   font-size:14px;box-shadow:0 8px 20px rgba(0,0,0,.25);
   cursor:pointer;z-index:10
 }
-body.dark .toggle,body.dark #audioBtn{background:#07142e;color:#fff}
+body.dark .toggle,body.dark #audioBtn{background:#0f1d3d;color:#fff}
 </style>
 </head>
 
@@ -117,7 +129,28 @@ body.dark .toggle,body.dark #audioBtn{background:#07142e;color:#fff}
   </div>
   <h1>Ruang Vita</h1>
   <div class="tagline">Ruang kecil untuk ide, cerita, dan semua karyaku 💖</div>
-  <!-- links kamu tetap -->
+
+  <div class="links">
+    <div style="font-size:12px;opacity:.7">✍️ KARYA</div>
+    <a href="https://halimunjingga.blogspot.com/"><span>📝</span>Catatan Senja<span>›</span></a>
+    <a href="https://medium.com/@halimunjingga"><span>✒️</span>Coretan Senja<span>›</span></a>
+    <a href="https://www.wattpad.com/halimunjinggaa"><span>📖</span>Halimun Jingga — Book<span>›</span></a>
+
+    <div style="font-size:12px;opacity:.7;margin-top:14px">🎧 SUARA & VIDEO</div>
+    <a href="#"><span>🎙️</span>Surat Bersuara — Podcast<span>›</span></a>
+    <a href="https://www.youtube.com/@halimunjingga"><span>🎧</span>Halimun Jingga — Audio<span>›</span></a>
+    <a href="https://www.youtube.com/@behindvitascenes"><span>🎬</span>Behind Vita Scenes<span>›</span></a>
+
+    <div style="font-size:12px;opacity:.7;margin-top:14px">🌐 SOSIAL</div>
+    <a href="https://www.tiktok.com/@_halimunjingga"><span>🎵</span>Si Jingga<span>›</span></a>
+    <a href="https://pin.it/3Xlu5nE05"><span>📌</span>Moodboard Jingga<span>›</span></a>
+    <a href="https://www.instagram.com/_halimunjingga"><span>📷</span>Halimun Jingga — Cerita<span>›</span></a>
+
+    <div style="font-size:12px;opacity:.7;margin-top:14px">🛍️ SHOP</div>
+    <a href="https://www.instagram.com/svajonecraft"><span>🧵</span>Svajone Craft — Shop<span>›</span></a>
+  </div>
+
+  <footer>© 2026 Vita Room</footer>
 </div>
 
 <button class="toggle" id="modeBtn">🌙</button>
@@ -139,6 +172,7 @@ const bgmDay=document.getElementById('bgmDay');
 const bgmNight=document.getElementById('bgmNight');
 let playing=false;
 
+// Auto dark
 if(new Date().getHours()>=18||new Date().getHours()<6) body.classList.add('dark');
 
 // Stars
@@ -155,7 +189,7 @@ function makeStars(){
 }
 if(body.classList.contains('dark')) makeStars();
 
-// Shooting star 1.5–3s
+// Shooting Star loop
 function spawnShootingStar(){
   if(!body.classList.contains('dark')) return;
   const star=document.createElement('div');
@@ -166,7 +200,7 @@ function spawnShootingStar(){
   setTimeout(()=>star.remove(),1200);
 }
 function loopShootingStar(){
-  const delay = Math.random()*1500+1500;
+  const delay=Math.random()*1500+1500;
   setTimeout(()=>{spawnShootingStar();loopShootingStar();},delay);
 }
 loopShootingStar();
@@ -189,7 +223,7 @@ function playCurrent(){
   current.play().then(()=>{
     audioBtn.textContent='⏸ Pause';
     playing=true;
-  }).catch(()=>{alert('Klik layar dulu ya, baru Play 🎧');});
+  }).catch(()=>{alert('Tap layar dulu ya, lalu klik 🎧');});
 }
 audioBtn.onclick=()=>{
   if(!playing){playCurrent();}
@@ -198,4 +232,4 @@ audioBtn.onclick=()=>{
 </script>
 
 </body>
-</html>
+                                                                                                     </html>
