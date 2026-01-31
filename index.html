@@ -12,15 +12,21 @@
 /* ===== DAY MODE ===== */
 body{
   margin:0;min-height:100vh;font-family:'Montserrat',sans-serif;
-  background:linear-gradient(rgba(255,230,239,.75),rgba(255,245,236,.75));
+  background:
+    linear-gradient(rgba(255,230,239,.65),rgba(255,245,236,.65)),
+    url('https://image2url.com/r2/default/images/1769741410716-5879dc79-fc4c-4843-9936-45ebb839b02a.jpg');
+  background-size:cover;
+  background-position:center;
   display:flex;align-items:center;justify-content:center;
   transition:1s ease;
   color:#6b3c55;
 }
 
-/* ===== NIGHT MODE ===== */
+/* ===== NIGHT MODE – DREAMY NAVY SKY ===== */
 body.dark{
-  background:radial-gradient(circle at top, #0d1b3d 0%, #050a1a 70%, #02040c 100%);
+  background:
+    radial-gradient(circle at top, rgba(40,70,120,.35), rgba(5,10,25,.95)),
+    linear-gradient(180deg, #0b1533 0%, #02040c 100%);
   color:#dbe9ff;
 }
 
@@ -33,6 +39,16 @@ body.dark #stars{display:block}
   opacity:.7;animation:twinkle 3s infinite
 }
 @keyframes twinkle{0%,100%{opacity:.2}50%{opacity:1}}
+
+/* ===== CLOUD / GLOW MIST ===== */
+body.dark::before{
+  content:'';
+  position:fixed;inset:0;
+  background:
+    radial-gradient(circle at 30% 80%, rgba(120,160,255,.15), transparent 40%),
+    radial-gradient(circle at 70% 20%, rgba(180,200,255,.12), transparent 45%);
+  z-index:1;pointer-events:none;
+}
 
 /* ===== SHOOTING STAR ===== */
 .shooting-star{
@@ -78,7 +94,6 @@ body.dark .links a{
   background:linear-gradient(135deg,#0f1d3d,#09142e);
   border:1px solid #2a3a6a;
   color:#dbe9ff;
-  box-shadow:0 8px 22px rgba(0,0,0,.6);
 }
 
 /* ===== BUTTONS ===== */
@@ -153,6 +168,7 @@ const bgmDay=document.getElementById('bgmDay');
 const bgmNight=document.getElementById('bgmNight');
 let playing=false;
 
+// Auto dark
 if(new Date().getHours()>=18||new Date().getHours()<6) body.classList.add('dark');
 
 // Stars
@@ -169,7 +185,7 @@ function makeStars(){
 }
 if(body.classList.contains('dark')) makeStars();
 
-// Shooting star 1.5–3s
+// Shooting Star loop
 function spawnShootingStar(){
   if(!body.classList.contains('dark')) return;
   const star=document.createElement('div');
@@ -179,9 +195,11 @@ function spawnShootingStar(){
   document.body.appendChild(star);
   setTimeout(()=>star.remove(),1200);
 }
-(function loop(){
-  setTimeout(()=>{spawnShootingStar();loop();},Math.random()*1500+1500);
-})();
+function loopShootingStar(){
+  const delay=Math.random()*1500+1500;
+  setTimeout(()=>{spawnShootingStar();loopShootingStar();},delay);
+}
+loopShootingStar();
 
 // Toggle
 btn.onclick=()=>{
@@ -201,7 +219,7 @@ function playCurrent(){
   current.play().then(()=>{
     audioBtn.textContent='⏸ Pause';
     playing=true;
-  }).catch(()=>alert('Tap layar dulu ya baru klik 🎧'));
+  }).catch(()=>{alert('Tap layar dulu ya, lalu klik 🎧');});
 }
 audioBtn.onclick=()=>{
   if(!playing){playCurrent();}
@@ -210,4 +228,4 @@ audioBtn.onclick=()=>{
 </script>
 
 </body>
-</html>
+  </html>
